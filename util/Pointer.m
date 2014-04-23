@@ -10,7 +10,7 @@
 % p1 = Pointer(1);
 % p2 = p1
 % p1.set(123);
-% p1.get() == p1.get() % is true
+% p1.get() == p2.get() % is true
 
 % Copyright (c) Yuta Itoh 2014
 
