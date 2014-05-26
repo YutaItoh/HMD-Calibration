@@ -12,6 +12,8 @@ and to share the evaluation scheme we used for our experiments.
 ## How to use it:
 (Note: More detailed usage to be added, but *"done-is-better-than-perfect"* spirit so far :) )
 
+Requirements: MATLAB (with Statistics Toolbox)
+
 At the root directory of this reporisory on your matlab console, just type,
 ```matlab
 >> main
