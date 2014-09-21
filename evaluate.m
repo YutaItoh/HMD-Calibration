@@ -71,9 +71,9 @@ condition{id} = create_condition(methodNameSAPAAM,        @compare_by_SPAAM,    
 % Degraded SPAAM (Testing confition)
 condition{id} = create_condition(methodNameDegradedSPAAM, @compare_by_DegradedSPAAM, 'c', '.', eye(3) );id=id+1;
 % Eye calibration option 2 (t_WS_z is manual value)
-condition{id} = create_condition(methodNameRecycle ,      @compare_by_IFCA_Recycle,        'r', '.', cool(3) );id=id+1;
+condition{id} = create_condition(methodNameRecycle ,      @compare_by_INDICA_Recycle,        'r', '.', cool(3) );id=id+1;
 % Eye calibration option 1 (Full display param)
-condition{id} = create_condition(methodNameFull,          @compare_by_IFCA_Full,        'm', '.', cool(3) );id=id+1;
+condition{id} = create_condition(methodNameFull,          @compare_by_INDICA_Full,        'm', '.', cool(3) );id=id+1;
 num_of_conditions = length(condition);
 
 %% Set up figure configurations
@@ -361,7 +361,7 @@ function errors = compare_by_DegradedSPAAM(Sequences,plot_cfg)
 end
 
 %% Evaluation of Eye SPAAM Option 2 (the version with an old intrinsic param.)
-function errors = compare_by_IFCA_Recycle(Sequences,plot_cfg)
+function errors = compare_by_INDICA_Recycle(Sequences,plot_cfg)
     Calib_Brick = plot_cfg.Calib_Brick;
     display_param = plot_cfg.display_param;
 
@@ -377,7 +377,7 @@ function errors = compare_by_IFCA_Recycle(Sequences,plot_cfg)
             block_offline = Calib_Brick;
             block_online  = Sequences{s_idx}{k};
             block_gt      = block_online;
-            param = get_IFCA_Recycle( block_online, block_offline, display_param, is_estimated_z_used );
+            param = get_INDICA_Recycle( block_online, block_offline, display_param, is_estimated_z_used );
             e_idx = e_idx + 1;
             errors(e_idx,1) = analyze_estimate(param, block_gt, plot_cfg);
         end
@@ -385,7 +385,7 @@ function errors = compare_by_IFCA_Recycle(Sequences,plot_cfg)
 end
 
 %% Evaluation of Eye SPAAM Option 1 (the version with full display parameters.)
-function errors = compare_by_IFCA_Full(Sequences,plot_cfg)
+function errors = compare_by_INDICA_Full(Sequences,plot_cfg)
     Calib_Brick = plot_cfg.Calib_Brick;
     display_param = plot_cfg.display_param;
 
@@ -400,7 +400,7 @@ function errors = compare_by_IFCA_Full(Sequences,plot_cfg)
             block_offline = Calib_Brick;%Sequences{s_idx}{k};
             block_online  = Sequences{s_idx}{k};
             block_gt      = block_online;
-            param = get_IFCA_Full( block_online, block_offline, display_param );
+            param = get_INDICA_Full( block_online, block_offline, display_param );
             e_idx = e_idx + 1;
             errors(e_idx,1) = analyze_estimate(param, block_gt, plot_cfg);
         end
@@ -449,7 +449,7 @@ end
 
     
 %% Get Projection matrix by using eye position and option 2 (Recycle)
-function out = get_IFCA_Recycle( block_online, block_offline, display_param, is_estimated_z_used )
+function out = get_INDICA_Recycle( block_online, block_offline, display_param, is_estimated_z_used )
 R_WS = block_offline.R_WE0;
 t_WE0= block_offline.t_WE0;
 K_E0 = block_offline.K_E0;
@@ -467,7 +467,7 @@ t_ET = block_online.t_ET_mean;
 % Flip the eye coordinate system
 t_ET(3) = -abs(t_ET(3));
 
-[P_WE,t_WE] = IFCA_Recycle(R_WS,R_WT,t_WT,t_ET,t_WS_z,K_E0,t_WE0);
+[P_WE,t_WE] = INDICA_Recycle(R_WS,R_WT,t_WT,t_ET,t_WS_z,K_E0,t_WE0);
 
 out.P_WE = P_WE;
 out.t_WE = t_WE;
@@ -478,7 +478,7 @@ end
 
 
 %% Get Projection matrix by using eye position and option 1 (Full display parameters)
-function out = get_IFCA_Full( block_online, block_offline, display_param )
+function out = get_INDICA_Full( block_online, block_offline, display_param )
 R_WT = display_param.R_WT;
 t_WT = display_param.t_WT;
 t_ET = block_online.t_ET_mean;
@@ -499,7 +499,7 @@ alpha = display_param.alpha;
 ax = alpha;
 ay = alpha;
 
-[P_WE,t_WE] = IFCA_Full(R_WS,R_WT,t_WT,t_ET,t_WS,ax,ay,w,h);
+[P_WE,t_WE] = INDICA_Full(R_WS,R_WT,t_WT,t_ET,t_WS,ax,ay,w,h);
 
 %% Draw Eye Ball (t_EW)
 color=[0 1 0];

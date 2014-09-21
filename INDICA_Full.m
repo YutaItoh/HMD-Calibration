@@ -1,11 +1,11 @@
-%% IFCA_Recycle Interaction-free Calibration (Full Setup)
+%% INDICA_Recycle Interaction-free Calibration (Full Setup)
 %
 % Implementation of eye position-based calibration method (Full Setup)
 % for Interaction-free calibtation of
 
 % Copyright (c) Yuta Itoh 2014
 
-function [P_WE,t_WE] = IFCA_Full(R_WS,R_WT,t_WT,t_ET,t_WS,ax,ay,w,h)
+function [P_WE,t_WE] = INDICA_Full(R_WS,R_WT,t_WT,t_ET,t_WS,ax,ay,w,h)
 t_WE = -R_WS*(-R_WT'*t_WT+ R_WT'*t_ET);
 
 % adjust pixel center

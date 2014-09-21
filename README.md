@@ -28,20 +28,20 @@ please consult the following function files:
 >> % Functions that give you 3x4 projection matrix
 >>
 >> % Eye position-based calibration (Full/Recycle Setups)
->> % for Interaction-Free CAlibration (IFCA) method.
->> P = IFCA_Full   (R_WS, R_WT, t_WT, t_ET, t_WS, ax, ay, w, h);
->> P = IFCA_Recycle(R_WS, R_WT, t_WT, t_ET, t_WS_z, K_E0, t_WE0);
+>> % for Interaction-free Display CAlibration (INDICA) method.
+>> P = INDICA_Full   (R_WS, R_WT, t_WT, t_ET, t_WS, ax, ay, w, h);
+>> P = INDICA_Recycle(R_WS, R_WT, t_WT, t_ET, t_WS_z, K_E0, t_WE0);
 >>
 >> % A basic Direct Linear Transform for SPAAM
 >> P = DLT(uv,xyz); 
 ```
-The figure below visualizes spatial relationship of each input arguments for IFCA:
+The figure below visualizes spatial relationship of each input arguments for INDICA:
 ![](https://cloud.githubusercontent.com/assets/7195124/2751032/c1a727f6-c8ac-11e3-876c-29d922fad475.png)
 
 Our code is tested on MATLAB(R) version 2013b, and might require some toolboxes.
 
 ## Reference:
-Please refer to the following publication, which introduces the IFCA method:
+Please refer to the following publication, which introduces the INDICA method:
 ```latex
 @article{itoh2014-3dui
   author    = {Itoh, Yuta and Klinker, Gudrun},
